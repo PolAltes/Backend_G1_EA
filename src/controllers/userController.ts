@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import User from '../models/user';
 import { deleteActivity } from '../services/activityService';
+import { generateFriendList } from '../services/friendListService'; 
 import bcrypt from 'bcrypt';
 import * as userService from '../services/userService';
 import mongoose from 'mongoose';
@@ -53,6 +54,10 @@ export const createUser = async (req: Request, res: Response): Promise<void> => 
       level: newUser.level,
       createdAt: newUser.createdAt
     };
+
+    if(newUser._id){
+      await generateFriendList(newUser._id);
+    }
     
     res.status(201).json({
       message: 'User created successfully',
