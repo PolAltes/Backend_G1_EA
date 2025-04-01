@@ -49,6 +49,12 @@ export const activitySchema = new Schema<IActivity>({
         default: [],
         required: true
     }],
+    valorations: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Valoration',
+        required: true,
+        default: []
+    }],
     type: {
         type: String, 
         enum: ["running","cycling","hiking", "walking"],
@@ -68,6 +74,7 @@ export interface IActivity {
     caloriesBurned?: number; //almacenar en minutos
     route: mongoose.Types.ObjectId[]; //ruta enregistrada (llista de punts gps)
     musicPlaylist: mongoose.Types.ObjectId[];
+    valorations: mongoose.Types.ObjectId[];
     type:"running"|"cycling"|"hiking"|"walking";
 }
 

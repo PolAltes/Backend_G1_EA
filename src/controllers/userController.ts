@@ -4,6 +4,7 @@ import { deleteActivity } from '../services/activityService';
 import bcrypt from 'bcrypt';
 import * as userService from '../services/userService';
 import mongoose from 'mongoose';
+import { deleteValoration } from '../services/valorationService';
 
 /**
  * Crear un nuevo usuario
@@ -36,6 +37,7 @@ export const createUser = async (req: Request, res: Response): Promise<void> => 
       activities: [],
       achievements: [],
       challengesCompleted: [],
+      valorations: [],
       createdAt: new Date(),
       updatedAt: new Date()
     });
@@ -208,10 +210,11 @@ export const deleteUser = async (req: Request, res: Response): Promise<void> => 
           if(!user){
               res.status(401).json({message: `User "${req.params.title}" not found`});
           }
-          if(user !== null && user.activities){
+          if(user !== null && user.activities && user.valorations){
             for (let activity of user.activities) {
+              await deleteValoration(activity._id.toString(),user._id.toString());
               await deleteActivity(activity._id.toString());
-            }
+            };
           }
           await userService.deleteUser(req.params.id);
           res.status(201).json(user);

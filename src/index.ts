@@ -6,6 +6,7 @@ import connectDatabase from './config/db';
 import achievementRoutes from './routes/achievementRoutes';
 import challengeRoutes from './routes/challengeRoutes';
 import songRoutes from './routes/songRoutes';
+import valorationRoutes from './routes/valorationRoutes'
 import { corsHandler } from './middleware/corsHandler';
 import dotenv from 'dotenv';
 import setupSwagger from './config/swaggerConfig';
@@ -30,6 +31,7 @@ app.use('/api/activities', activityRoutes);
 app.use('/api/achievements', achievementRoutes);
 app.use('/api/challenges', challengeRoutes);
 app.use('/api/songs', songRoutes);
+app.use('/api/valorations',valorationRoutes);
 app.get('/', (req, res) => {
   res.send('API en funcionament, la documentació es troba a /api-docs.');
 });

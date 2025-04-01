@@ -57,6 +57,12 @@ const userSchema = new Schema({
         required: true,
         default: []
     }],
+    valorations: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Valoration',
+        required: true,
+        default: []
+    }],
     visibility: {
         type: Boolean,
         default: true,
@@ -82,6 +88,7 @@ export interface IUser extends Document {
     challengesCompleted: Types.ObjectId[];
     createdAt: Date;
     updatedAt: Date;
+    valorations: Types.ObjectId[];
     visibility: boolean;
 }
 
